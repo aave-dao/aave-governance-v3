@@ -248,6 +248,40 @@ contract GranularPayloadsManagerPPCTest is Test {
     granularManager.grantRole(managerRole, address(999));
   }
 
+  function test_grantPayloadsManagerRole_byPayloadsManagerRole() public {
+    address newManager = address(888);
+    bytes32 managerRole = granularManager.PAYLOADS_MANAGER_ROLE();
+    bytes32 adminRole = granularManager.DEFAULT_ADMIN_ROLE();
+
+    vm.expectRevert(
+      abi.encodeWithSelector(
+        IAccessControl.AccessControlUnauthorizedAccount.selector,
+        PAYLOADS_MANAGER_1,
+        adminRole
+      )
+    );
+    vm.prank(PAYLOADS_MANAGER_1);
+    granularManager.grantRole(managerRole, newManager);
+  }
+
+  function test_revokePayloadsManagerRole_byPayloadsManagerRole() public {
+    bytes32 managerRole = granularManager.PAYLOADS_MANAGER_ROLE();
+    bytes32 adminRole = granularManager.DEFAULT_ADMIN_ROLE();
+
+    assertTrue(granularManager.hasRole(managerRole, PAYLOADS_MANAGER_1));
+    assertTrue(granularManager.hasRole(managerRole, PAYLOADS_MANAGER_2));
+
+    vm.expectRevert(
+      abi.encodeWithSelector(
+        IAccessControl.AccessControlUnauthorizedAccount.selector,
+        PAYLOADS_MANAGER_1,
+        adminRole
+      )
+    );
+    vm.prank(PAYLOADS_MANAGER_1);
+    granularManager.revokeRole(managerRole, PAYLOADS_MANAGER_2);
+  }
+
   function test_getRoleMembers_returnsAllManagers() public view {
     assertEq(granularManager.getRoleMemberCount(granularManager.PAYLOADS_MANAGER_ROLE()), 2);
     assertEq(granularManager.getRoleMember(granularManager.PAYLOADS_MANAGER_ROLE(), 0), PAYLOADS_MANAGER_1);

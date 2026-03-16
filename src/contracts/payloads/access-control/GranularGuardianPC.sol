@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.26;
 
 import {AccessControlEnumerable} from 'openzeppelin-contracts/contracts/access/extensions/AccessControlEnumerable.sol';
 import {IWithGuardian} from 'solidity-utils/contracts/access-control/OwnableWithGuardian.sol';
@@ -33,14 +33,14 @@ contract GranularGuardianPC is AccessControlEnumerable, IGranularGuardianPC {
     address payloadsController,
     address[] memory cancellationRoleAddresses
   ) {
-    if (governanceExecutor == address(0)) revert InvalidZeroAddress();
-    if (payloadsController == address(0)) revert InvalidZeroAddress();
+    require(governanceExecutor != address(0), InvalidZeroAddress());
+    require(payloadsController != address(0), InvalidZeroAddress());
 
     _grantRole(DEFAULT_ADMIN_ROLE, governanceExecutor);
     PAYLOADS_CONTROLLER = IPayloadsControllerCore(payloadsController);
 
     for (uint256 i = 0; i < cancellationRoleAddresses.length; i++) {
-      if (cancellationRoleAddresses[i] == address(0)) revert InvalidZeroAddress();
+      require(cancellationRoleAddresses[i] != address(0), InvalidZeroAddress());
       _grantRole(CANCELLATION_ROLE, cancellationRoleAddresses[i]);
     }
   }

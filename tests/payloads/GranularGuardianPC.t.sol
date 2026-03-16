@@ -177,6 +177,42 @@ contract GranularGuardianPCTest is Test {
     assertTrue(granularGuardian.hasRole(cancellationRole, newCanceller));
   }
 
+  function test_grantCancellationRole_byCancellationRole() public {
+    address newCanceller = address(888);
+    bytes32 cancellationRole = granularGuardian.CANCELLATION_ROLE();
+    bytes32 adminRole = granularGuardian.DEFAULT_ADMIN_ROLE();
+
+    assertTrue(granularGuardian.hasRole(cancellationRole, CANCELLER_1));
+
+    vm.prank(CANCELLER_1);
+    vm.expectRevert(
+      abi.encodeWithSelector(
+        IAccessControl.AccessControlUnauthorizedAccount.selector,
+        CANCELLER_1,
+        adminRole
+      )
+    );
+    granularGuardian.grantRole(cancellationRole, newCanceller);
+  }
+
+  function test_revokeCancellationRole_byCancellationRole() public {
+    bytes32 cancellationRole = granularGuardian.CANCELLATION_ROLE();
+    bytes32 adminRole = granularGuardian.DEFAULT_ADMIN_ROLE();
+
+    assertTrue(granularGuardian.hasRole(cancellationRole, CANCELLER_1));
+    assertTrue(granularGuardian.hasRole(cancellationRole, CANCELLER_2));
+
+    vm.prank(CANCELLER_1);
+    vm.expectRevert(
+      abi.encodeWithSelector(
+        IAccessControl.AccessControlUnauthorizedAccount.selector,
+        CANCELLER_1,
+        adminRole
+      )
+    );
+    granularGuardian.revokeRole(cancellationRole, CANCELLER_2);
+  }
+
   function test_revokeCancellationRole_byAdmin() public {
     bytes32 cancellationRole = granularGuardian.CANCELLATION_ROLE();
 

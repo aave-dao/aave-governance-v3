@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.26;
 
 import {AccessControlEnumerable} from 'openzeppelin-contracts/contracts/access/extensions/AccessControlEnumerable.sol';
 import {IPayloadsControllerCore} from '../interfaces/IPayloadsControllerCore.sol';
@@ -33,14 +33,14 @@ contract GranularPayloadsManagerPPC is AccessControlEnumerable, IGranularPayload
     address payloadsController,
     address[] memory payloadsManagerAddresses
   ) {
-    if (governanceExecutor == address(0)) revert InvalidZeroAddress();
-    if (payloadsController == address(0)) revert InvalidZeroAddress();
+    require(governanceExecutor != address(0), InvalidZeroAddress());
+    require(payloadsController != address(0), InvalidZeroAddress());
 
     _grantRole(DEFAULT_ADMIN_ROLE, governanceExecutor);
     PAYLOADS_CONTROLLER = IPayloadsControllerCore(payloadsController);
 
     for (uint256 i = 0; i < payloadsManagerAddresses.length; i++) {
-      if (payloadsManagerAddresses[i] == address(0)) revert InvalidZeroAddress();
+      require(payloadsManagerAddresses[i] != address(0), InvalidZeroAddress());
       _grantRole(PAYLOADS_MANAGER_ROLE, payloadsManagerAddresses[i]);
     }
   }
