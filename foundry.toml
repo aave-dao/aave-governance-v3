@@ -5,7 +5,7 @@ out = 'out'
 libs = ['lib']
 script = 'scripts'
 remappings = []
-solc='0.8.22'
+solc='0.8.27'
 
 fs_permissions = [{ access = "read-write", path = "./"}]
 
