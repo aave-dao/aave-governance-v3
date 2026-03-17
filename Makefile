@@ -100,6 +100,8 @@ deploy-permissioned-executor:
 deploy-permissioned-payloads-controller:
 	$(call deploy_fn,Payloads/Deploy_PermissionedPayloadsController,ethereum)
 
+deploy-granular-ppc-access-control:
+	$(call deploy_fn,Payloads/Deploy_GranularPPCAccessControl,ethereum)
 
 # -----------------------------------------------------
 # ----------------- REPLACE VOTING MACHINE ------------

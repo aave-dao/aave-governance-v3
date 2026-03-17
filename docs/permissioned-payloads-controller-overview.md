@@ -20,3 +20,13 @@ At launch it will have permissions to change the LM programs for Aave.
   4. Once the timelock period ends and the payload is unlocked and not expired, anyone is permitted to execute it.
 
 ![Permissioned payloads controller flow](./permissioned-payloads-controller-flow.jpg)
+
+---
+
+## GranularAccessControlPPC
+
+The `PermissionedPayloadsController` assigns the `payloadsManager` and `guardian` roles to a single address each. This works well when a single trusted party holds each role, but becomes a limitation when multiple independent entities need to act — for example, several agent contracts each needing to submit payloads, or several DAO service providers each needing to cancel them.
+
+[GranularAccessControlPPC](/src/contracts/payloads/access-control/GranularAccessControlPPC.sol) solves this without modifying the underlying PPC. It is set as both the guardian and the payloads manager on a single controller instance, and internally distributes those permissions across multiple independent addresses. The admin retains full control over who holds those permissions and can add or remove addresses at any time without touching the controller itself.
+
+Any address the admin grants the payloads manager role to can create and cancel payloads on the controller. Any address the admin grants the cancellation role to can cancel payloads. The admin also retains the ability to rotate the guardian address on the underlying controller entirely, for example to replace `GranularAccessControlPPC` with a new contract or a plain address.

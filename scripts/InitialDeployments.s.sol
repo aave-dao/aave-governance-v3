@@ -398,4 +398,5 @@ contract MegaEth is BaseInitialDeployment {
 
   function CROSS_CHAIN_CONTROLLER() public pure override returns (address) {
     return 0x5EE63ACb37AeCDc7e23ACA283098f8ffD9677BBe;
+  }
 }
