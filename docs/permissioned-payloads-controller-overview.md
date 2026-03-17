@@ -23,12 +23,10 @@ At launch it will have permissions to change the LM programs for Aave.
 
 ---
 
-## Granular access-control wrappers
+## Granular access-control wrapper
 
 The `PermissionedPayloadsController` assigns the `payloadsManager` and `guardian` roles to a single address each. This works well when a single trusted party holds each role, but becomes a limitation when multiple independent entities need to act — for example, several Agent Contracts each needing to submit payloads, or several DAO service providers each needing to cancel them.
 
-[GranularPayloadsManagerPPC](/src/contracts/payloads/access-control/GranularPayloadsManagerPPC.sol) and [GranularGuardianPC](/src/contracts/payloads/access-control/GranularGuardianPC.sol) solve this without modifying the underlying controller. Each contract is assigned the relevant role on the controller and then internally distributes that permission to as many addresses as needed. The admin of each wrapper contract retains full control over who holds those permissions and can add or remove addresses at any time without touching the controller itself.
+[GranularAccessControlPPC](/src/contracts/payloads/access-control/GranularAccessControlPPC.sol) solves this without modifying the underlying controller. It is set as both the guardian and the payloads manager on a single controller instance, and internally distributes those permissions across multiple independent addresses. The admin retains full control over who holds those permissions and can add or remove addresses at any time without touching the controller itself.
 
-[GranularPayloadsManagerPPC](/src/contracts/payloads/access-control/GranularPayloadsManagerPPC.sol) is set as the `payloadsManager` on a `PermissionedPayloadsController` instance. Any address the admin grants the payloads manager role to can then create and cancel payloads on the PPC directly.
-
-[GranularGuardianPC](/src/contracts/payloads/access-control/GranularGuardianPC.sol) is set as the `guardian` on a `PayloadsController` instance. Any address the admin grants the cancellation role to can cancel payloads. The admin also retains the ability to rotate the guardian address on the underlying controller entirely, for example to replace `GranularGuardianPC` with a new contract or a plain address.
+Any address the admin grants the payloads manager role to can create and cancel payloads on the controller. Any address the admin grants the cancellation role to can cancel payloads. The admin also retains the ability to rotate the guardian address on the underlying controller entirely, for example to replace `GranularAccessControlPPC` with a new contract or a plain address.
