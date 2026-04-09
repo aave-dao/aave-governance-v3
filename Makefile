@@ -6,7 +6,7 @@ test :; forge test -vvvv
 # ---------------------------------------------- BASE SCRIPT CONFIGURATION ---------------------------------------------
 
 BASE_LEDGER = --ledger --mnemonic-indexes $(MNEMONIC_INDEX) --sender $(LEDGER_SENDER)
-BASE_KEY = --private-key ${PRIVATE_KEY}
+ACCOUNT = --account ${ACCOUNT_NAME}
 
 custom_ethereum := --with-gas-price 5000000000 # 0.5 gwei
 custom_polygon :=  --with-gas-price 170000000000 # 170 gwei
@@ -29,7 +29,7 @@ define deploy_single_fn
 forge script \
  scripts/$(1).s.sol:$(if $(3),$(if $(PROD),$(3),$(3)_testnet),$(shell UP=$(if $(PROD),$(2),$(2)_testnet); echo $${UP} | perl -nE 'say ucfirst')) \
  --rpc-url $(if $(PROD),$(2),$(2)-testnet) --broadcast --verify --legacy -vvvv \
- $(if $(LEDGER),$(BASE_LEDGER),$(BASE_KEY)) \
+ $(if $(LEDGER),$(BASE_LEDGER),$(ACCOUNT)) \
  $(custom_$(if $(PROD),$(2),$(2)-testnet))
 
 endef
