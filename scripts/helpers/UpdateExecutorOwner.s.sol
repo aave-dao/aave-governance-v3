@@ -128,3 +128,24 @@ contract MegaEth is Script, UpdateExecutorPermissionsMegaEth {
     vm.stopBroadcast();
   }
 }
+
+
+contract UpdateExecutorPermissionsMonad is UpdateExecutorOwner {
+  function targetOwner() public pure override returns (address) {
+    return 0x442CA936e5E6Db875357d0A16481145c96dd9a82; // PC
+  }
+
+  function executor() public pure override returns (address) {
+    return 0xa9d0EAFF48cE1DF468f9eAeb7e628c413343F6A2; // Executor Lvl 1
+  }
+}
+
+contract Monad is Script, UpdateExecutorPermissionsMonad {
+  function run() external {
+    vm.startBroadcast();
+
+    _changeOwner();
+
+    vm.stopBroadcast();
+  }
+}

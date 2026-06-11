@@ -19,26 +19,26 @@ jobs:
         with:
           submodules: recursive
 
-      - uses: bgd-labs/action-rpc-env@main
+      - uses: aave-dao/action-rpc-env@main
         with:
           ALCHEMY_API_KEY: ${{ secrets.ALCHEMY_API_KEY }}
 
       # we simply use foundry zk for all jobs in this repo
       - name: Run Foundry setup
-        uses: bgd-labs/github-workflows/.github/actions/foundry-setup@main
+        uses: aave-dao/github-workflows/.github/actions/foundry-setup@main
 
       - name: Run Forge tests
         id: test
-        uses: bgd-labs/github-workflows/.github/actions/foundry-test@main
+        uses: aave-dao/github-workflows/.github/actions/foundry-test@main
 
       - name: Run Gas report
-        uses: bgd-labs/github-workflows/.github/actions/foundry-gas-report@main
+        uses: aave-dao/github-workflows/.github/actions/foundry-gas-report@main
 
       - name: Run Lcov report
-        uses: bgd-labs/github-workflows/.github/actions/foundry-lcov-report@main
+        uses: aave-dao/github-workflows/.github/actions/foundry-lcov-report@main
 
       - name: Run Forge tests
-        uses: bgd-labs/github-workflows/.github/actions/comment-artifact@main
+        uses: aave-dao/github-workflows/.github/actions/comment-artifact@main
 
       # we let failing tests pass so we can log them in the comment, still we want the ci to fail
       - name: Post test

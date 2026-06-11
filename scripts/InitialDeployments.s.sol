@@ -22,6 +22,8 @@ import {GovernanceV3Soneium} from 'aave-address-book/GovernanceV3Soneium.sol';
 import {GovernanceV3Plasma} from 'aave-address-book/GovernanceV3Plasma.sol';
 import {GovernanceV3Celo} from 'aave-address-book/GovernanceV3Celo.sol';
 import {GovernanceV3Bob} from 'aave-address-book/GovernanceV3Bob.sol';
+import {GovernanceV3XLayer} from 'aave-address-book/GovernanceV3XLayer.sol';
+import {GovernanceV3MegaEth} from 'aave-address-book/GovernanceV3MegaEth.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {MiscPolygon} from 'aave-address-book/MiscPolygon.sol';
 import {MiscAvalanche} from 'aave-address-book/MiscAvalanche.sol';
@@ -41,6 +43,8 @@ import {MiscSoneium} from 'aave-address-book/MiscSoneium.sol';
 import {MiscPlasma} from 'aave-address-book/MiscPlasma.sol';
 import {MiscCelo} from 'aave-address-book/MiscCelo.sol';
 import {MiscBob} from 'aave-address-book/MiscBob.sol';
+import {MiscXLayer} from 'aave-address-book/MiscXLayer.sol';
+import {MiscMegaEth} from 'aave-address-book/MiscMegaEth.sol';
 
 import './GovBaseScript.sol';
 
@@ -379,11 +383,11 @@ contract Xlayer is BaseInitialDeployment {
   }
 
   function PROXY_FACTORY() public pure override returns (address) {
-    return 0xEB0682d148e874553008730f0686ea89db7DA412;
+    return MiscXLayer.TRANSPARENT_PROXY_FACTORY;
   }
 
   function CROSS_CHAIN_CONTROLLER() public pure override returns (address) {
-    return 0xFdd46155fD3DA5B907AD3B9f9395366290f58097;
+    return GovernanceV3XLayer.CROSS_CHAIN_CONTROLLER;
   }
 }
 
@@ -393,9 +397,25 @@ contract MegaEth is BaseInitialDeployment {
   }
 
   function PROXY_FACTORY() public pure override returns (address) {
-    return 0xEB0682d148e874553008730f0686ea89db7DA412;
+    return MiscMegaEth.TRANSPARENT_PROXY_FACTORY;
   }
 
   function CROSS_CHAIN_CONTROLLER() public pure override returns (address) {
-    return 0x5EE63ACb37AeCDc7e23ACA283098f8ffD9677BBe;
+    return GovernanceV3MegaEth.CROSS_CHAIN_CONTROLLER;
+  }
 }
+
+contract Monad is BaseInitialDeployment {
+  function TRANSACTION_NETWORK() public pure override returns (uint256) {
+    return ChainIds.MONAD;
+  }
+
+  function PROXY_FACTORY() public pure override returns (address) {
+    return 0xEB0682d148e874553008730f0686ea89db7DA412; // MiscMonad.TRANSPARENT_PROXY_FACTORY
+  }
+
+  function CROSS_CHAIN_CONTROLLER() public pure override returns (address) {
+    return 0x8dd5b84b26ae3916A5Fb34C8968F93d206216b63; // GovernanceV3Monad.CROSS_CHAIN_CONTROLLER
+  }
+}
+
