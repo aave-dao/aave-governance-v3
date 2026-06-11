@@ -1,0 +1,26 @@
+scripts/Deploy_ContractHelpers.s.sol
+  h_739c25e72c37fb 157-162
+scripts/Payloads/Deploy_PayloadsController.s.sol
+  h_739c25e72c37fb 351-360
+scripts/Payloads/Deploy_ExecutorLvl1.s.sol
+  h_739c25e72c37fb 150-155
+scripts/InitialDeployments.s.sol
+  h_739c25e72c37fb 25-26,46-47,386,390,400,404,406-419,421
+Makefile
+  h_739c25e72c37fb 10,33,45,72,79,95
+.env.example
+  h_739c25e72c37fb 8-9
+foundry.toml
+  h_739c25e72c37fb 8,23-25,72,84
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "fc429de3388e476238c8560dde4124fb6effba27",
+  "prompts": {},
+  "humans": {
+    "h_739c25e72c37fb": {
+      "author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}
