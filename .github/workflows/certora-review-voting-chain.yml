@@ -31,9 +31,9 @@ jobs:
       - uses: actions/checkout@v4
         with:
           submodules: recursive
-      - uses: Certora/certora-run-action@v2
+      - uses: Certora/certora-run-action@v2.9.0
         with:
-          cli-version: 7.28.0
+          cli-release: alpha
           configurations: |-
             security/certora/confs/voting/verifyLegality.conf --rule createdVoteHasNonZeroHash  votedPowerIsImmutable  onlyValidProposalCanChangeTally  legalVote  method_reachability
             security/certora/confs/voting/verifyMisc.conf --exclude_rule submitTripleProofVerification
