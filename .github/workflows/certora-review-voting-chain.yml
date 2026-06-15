@@ -33,18 +33,18 @@ jobs:
           submodules: recursive
       - uses: Certora/certora-run-action@v2.9.0
         with:
-          cli-release: alpha
+          cli-release: stable
           configurations: |-
-            security/certora/confs/voting/verifyLegality.conf --rule createdVoteHasNonZeroHash  votedPowerIsImmutable  onlyValidProposalCanChangeTally  legalVote  method_reachability --prover_version master
-            security/certora/confs/voting/verifyMisc.conf --exclude_rule submitTripleProofVerification --prover_version master
-            security/certora/confs/voting/verifyMisc.conf --rule submitTripleProofVerification --prover_version master
-            security/certora/confs/voting/verifyPower_summary.conf --rule onlyThreeTokens method_reachability --prover_version master
-            security/certora/confs/voting/verifyProposal_config.conf --rule startedProposalHasConfig  createdProposalHasRoots  proposalHasNonzeroDuration newProposalUnusedId configIsImmutable  getProposalsConfigsDoesntRevert  method_reachability --prover_version master
-            security/certora/confs/voting/verifyProposal_states.conf --rule startsBeforeEnds  startsStrictlyBeforeEnds  proposalLegalStates  proposalMethodStateTransitionCompliance  proposalTimeStateTransitionCompliance  proposalIdIsImmutable  proposalImmutability  startedProposalHasConfig  proposalHasNonzeroDuration method_reachability --prover_version master
-            security/certora/confs/voting/verifyVoting_and_tally.conf --rule votingPowerGhostIsVotingPower  sumOfVotes  voteTallyChangedOnlyByVoting  voteUpdatesTally  onlyVoteCanChangeResult  votingTallyCanOnlyIncrease  strangerVoteUnchanged  otherProposalUnchanged  otherVoterUntouched  method_reachability --prover_version master
-            security/certora/confs/voting/verifyVoting_and_tally.conf --rule cannot_vote_twice_with_submitVote_and_submitVoteAsRepresentative --prover_version master
-            security/certora/confs/voting/verifyVoting_and_tally.conf --rule cannot_vote_twice_with_submitVoteAsRepresentative_and_submitVote --prover_version master
-            security/certora/confs/voting/verifyVoting_and_tally.conf --rule cannot_vote_twice_with_submitVoteSingleProofAsRepresentative_and_submitVote --prover_version master
+            security/certora/confs/voting/verifyLegality.conf --rule createdVoteHasNonZeroHash  votedPowerIsImmutable  onlyValidProposalCanChangeTally  legalVote  method_reachability
+            security/certora/confs/voting/verifyMisc.conf --exclude_rule submitTripleProofVerification
+            security/certora/confs/voting/verifyMisc.conf --rule submitTripleProofVerification
+            security/certora/confs/voting/verifyPower_summary.conf --rule onlyThreeTokens method_reachability
+            security/certora/confs/voting/verifyProposal_config.conf --rule startedProposalHasConfig  createdProposalHasRoots  proposalHasNonzeroDuration newProposalUnusedId configIsImmutable  getProposalsConfigsDoesntRevert  method_reachability
+            security/certora/confs/voting/verifyProposal_states.conf --rule startsBeforeEnds  startsStrictlyBeforeEnds  proposalLegalStates  proposalMethodStateTransitionCompliance  proposalTimeStateTransitionCompliance  proposalIdIsImmutable  proposalImmutability  startedProposalHasConfig  proposalHasNonzeroDuration method_reachability
+            security/certora/confs/voting/verifyVoting_and_tally.conf --rule votingPowerGhostIsVotingPower  sumOfVotes  voteTallyChangedOnlyByVoting  voteUpdatesTally  onlyVoteCanChangeResult  votingTallyCanOnlyIncrease  strangerVoteUnchanged  otherProposalUnchanged  otherVoterUntouched  method_reachability
+            security/certora/confs/voting/verifyVoting_and_tally.conf --rule cannot_vote_twice_with_submitVote_and_submitVoteAsRepresentative
+            security/certora/confs/voting/verifyVoting_and_tally.conf --rule cannot_vote_twice_with_submitVoteAsRepresentative_and_submitVote
+            security/certora/confs/voting/verifyVoting_and_tally.conf --rule cannot_vote_twice_with_submitVoteSingleProofAsRepresentative_and_submitVote
           solc-versions: 0.8.20
           comment-fail-only: false
           solc-remove-version-prefix: "0."
