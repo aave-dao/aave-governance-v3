@@ -7,6 +7,7 @@ test :; forge test -vvvv
 
 BASE_LEDGER = --ledger --mnemonic-indexes $(MNEMONIC_INDEX) --sender $(LEDGER_SENDER)
 BASE_KEY = --private-key ${PRIVATE_KEY}
+BASE_ACCOUNT = --account ${ACCOUNT_NAME}
 
 custom_ethereum := --with-gas-price 5000000000 # 0.5 gwei
 custom_polygon :=  --with-gas-price 170000000000 # 170 gwei
@@ -29,7 +30,7 @@ define deploy_single_fn
 forge script \
  scripts/$(1).s.sol:$(if $(3),$(if $(PROD),$(3),$(3)_testnet),$(shell UP=$(if $(PROD),$(2),$(2)_testnet); echo $${UP} | perl -nE 'say ucfirst')) \
  --rpc-url $(if $(PROD),$(2),$(2)-testnet) --broadcast --verify --legacy -vvvv \
- $(if $(LEDGER),$(BASE_LEDGER),$(BASE_KEY)) \
+ $(if $(LEDGER),$(BASE_LEDGER),$(BASE_ACCOUNT)) \
  $(custom_$(if $(PROD),$(2),$(2)-testnet))
 
 endef
@@ -41,7 +42,7 @@ endef
 # ----------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------- DEPLOYMENT SCRIPTS ---------------------------------------------------------
 deploy-initial:
-	$(call deploy_fn,InitialDeployments,megaEth)
+	$(call deploy_fn,InitialDeployments,monad)
 
 deploy-gov-power-strategy:
 	$(call deploy_fn,Governance/Deploy_Gov_PowerStrategy,ethereum)
@@ -68,14 +69,14 @@ set-vm-as-ccf-sender:
 	$(call deploy_fn,VotingMachine/Set_VM_as_CCF_Sender,ethereum avalanche polygon)
 
 deploy-executor-lvl1:
-	$(call deploy_fn,Payloads/Deploy_ExecutorLvl1,megaEth)
+	$(call deploy_fn,Payloads/Deploy_ExecutorLvl1,monad)
 
 deploy-executor-lvl2:
 	$(call deploy_fn,Payloads/Deploy_ExecutorLvl2,ethereum)
 
 ## Deploy execution chain contracts
 deploy-payloads-controller-chain:
-	$(call deploy_fn,Payloads/Deploy_PayloadsController,megaEth)
+	$(call deploy_fn,Payloads/Deploy_PayloadsController,monad)
 
 ## Deploy Governance Voting Portal
 deploy-voting-portals:
@@ -91,7 +92,7 @@ set-vp-as_ccf-senders:
 
 ## Deploy Contract Helpers
 deploy-helper-contracts:
-	$(call deploy_fn,Deploy_ContractHelpers,megaEth)
+	$(call deploy_fn,Deploy_ContractHelpers,monad)
 
 ## Deployed permissioned payloads controller
 deploy-permissioned-executor:
@@ -128,10 +129,10 @@ create-proposal:
 	$(call deploy_fn,helpers/CreateProposal,ethereum)
 
 update-pc-permissions:
-	$(call deploy_fn,helpers/UpdatePCPermissions,megaEth)
+	$(call deploy_fn,helpers/UpdatePCPermissions,monad)
 
 update-executor-owner:
-	$(call deploy_fn,helpers/UpdateExecutorOwner,megaEth)
+	$(call deploy_fn,helpers/UpdateExecutorOwner,monad)
 
 deploy-merkle-payload-updates:
 	$(call deploy_fn,GovernancePayloads/MerklePayloadUpdates,ethereum)

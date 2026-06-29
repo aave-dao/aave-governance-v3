@@ -348,3 +348,13 @@ contract MegaEth is BaseDeployPayloadsController {
     return ChainIds.ETHEREUM;
   }
 }
+
+contract Monad is BaseDeployPayloadsController {
+  function TRANSACTION_NETWORK() public pure override returns (uint256) {
+    return ChainIds.MONAD;
+  }
+
+  function GOVERNANCE_NETWORK() public pure override returns (uint256) {
+    return ChainIds.ETHEREUM;
+  }
+}

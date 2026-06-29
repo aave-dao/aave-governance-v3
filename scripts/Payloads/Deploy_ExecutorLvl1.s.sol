@@ -147,3 +147,9 @@ contract MegaEth is BaseDeployExecutorLvl1 {
     return ChainIds.MEGAETH;
   }
 }
+
+contract Monad is BaseDeployExecutorLvl1 {
+  function TRANSACTION_NETWORK() public pure override returns (uint256) {
+    return ChainIds.MONAD;
+  }
+}

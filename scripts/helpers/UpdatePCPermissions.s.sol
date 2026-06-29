@@ -233,3 +233,34 @@ contract MegaEth is Script, UpdatePCPermissionsMegaEth {
     vm.stopBroadcast();
   }
 }
+
+contract UpdatePCPermissionsMonad is UpdatePayloadsControllerPermissions {
+  function targetOwner() public pure override returns (address) {
+    return 0xa9d0EAFF48cE1DF468f9eAeb7e628c413343F6A2; // Executor Lvl 1
+  }
+
+  function targetGovernanceGuardian() public pure override returns (address) {
+    return 0x056E4C4E80D1D14a637ccbD0412CDAAEc5B51F4E;
+  }
+
+  function govContractsToUpdate()
+    public
+    pure
+    override
+    returns (address[] memory)
+  {
+    address[] memory contracts = new address[](1);
+    contracts[0] = 0x442CA936e5E6Db875357d0A16481145c96dd9a82; // PC
+    return contracts;
+  }
+}
+
+contract Monad is Script, UpdatePCPermissionsMonad {
+  function run() external {
+    vm.startBroadcast();
+
+    _changeOwnerAndGuardian();
+
+    vm.stopBroadcast();
+  }
+}

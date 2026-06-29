@@ -5,7 +5,7 @@ out = 'out'
 libs = ['lib']
 script = 'scripts'
 remappings = []
-solc='0.8.22'
+solc='0.8.28'
 
 fs_permissions = [{ access = "read-write", path = "./"}]
 
@@ -19,6 +19,9 @@ bytecode_hash = 'none'
 ffi = true
 
 #https://github.com/foundry-rs/foundry/issues/4060
+
+[lint]
+lint_on_build = false
 
 [profile.default.zksync]
 src = 'src'
@@ -66,6 +69,7 @@ plasma="${RPC_PLASMA}"
 bob="${RPC_BOB}"
 xlayer="${RPC_XLAYER}"
 megaEth="${RPC_MEGAETH}"
+monad="${RPC_MONAD}"
 
 [etherscan]
 metis={ key="any", chain=1088, url='https://andromeda-explorer.metis.io/' }
@@ -77,6 +81,7 @@ soneium={key="any", chain=1868, url='https://soneium.blockscout.com/api/'}
 bob={key="${ETHERSCAN_API_KEY_BOB}", chain=60808, url='https://explorer.gobob.xyz/api/'}
 xlayer={key="any", chain=196, url='https://www.oklink.com/api/v5/explorer/contract/verify-source-code-plugin/xlayer'}
 megaEth={key="any", chain=4326, url='https://megaeth.blockscout.com/api/'}
+monad={key="${ETHERSCAN_API_KEY}", chain=143, url='https://api.monadscan.io/api/'}
 
 
 
