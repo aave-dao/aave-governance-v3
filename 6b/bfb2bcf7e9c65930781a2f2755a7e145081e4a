@@ -1,0 +1,16 @@
+scripts/InitialDeployments.s.sol
+  h_739c25e72c37fb 27,49,416,420
+README.md
+  h_739c25e72c37fb 66
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.18",
+  "base_commit_sha": "6bbfb2bcf7e9c65930781a2f2755a7e145081e4a",
+  "prompts": {},
+  "humans": {
+    "h_739c25e72c37fb": {
+      "author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}
