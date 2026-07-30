@@ -24,6 +24,7 @@ import {GovernanceV3Celo} from 'aave-address-book/GovernanceV3Celo.sol';
 import {GovernanceV3Bob} from 'aave-address-book/GovernanceV3Bob.sol';
 import {GovernanceV3XLayer} from 'aave-address-book/GovernanceV3XLayer.sol';
 import {GovernanceV3MegaEth} from 'aave-address-book/GovernanceV3MegaEth.sol';
+import {GovernanceV3Monad} from 'aave-address-book/GovernanceV3Monad.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {MiscPolygon} from 'aave-address-book/MiscPolygon.sol';
 import {MiscAvalanche} from 'aave-address-book/MiscAvalanche.sol';
@@ -45,6 +46,7 @@ import {MiscCelo} from 'aave-address-book/MiscCelo.sol';
 import {MiscBob} from 'aave-address-book/MiscBob.sol';
 import {MiscXLayer} from 'aave-address-book/MiscXLayer.sol';
 import {MiscMegaEth} from 'aave-address-book/MiscMegaEth.sol';
+import {MiscMonad} from 'aave-address-book/MiscMonad.sol';
 
 import './GovBaseScript.sol';
 
@@ -411,11 +413,11 @@ contract Monad is BaseInitialDeployment {
   }
 
   function PROXY_FACTORY() public pure override returns (address) {
-    return 0xEB0682d148e874553008730f0686ea89db7DA412; // MiscMonad.TRANSPARENT_PROXY_FACTORY
+    return MiscMonad.TRANSPARENT_PROXY_FACTORY;
   }
 
   function CROSS_CHAIN_CONTROLLER() public pure override returns (address) {
-    return 0x8dd5b84b26ae3916A5Fb34C8968F93d206216b63; // GovernanceV3Monad.CROSS_CHAIN_CONTROLLER
+    return GovernanceV3Monad.CROSS_CHAIN_CONTROLLER;
   }
 }
 
