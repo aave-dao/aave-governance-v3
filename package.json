@@ -32,6 +32,7 @@
   "dependencies": {
     "alchemy-sdk": "^2.2.3",
     "dotenv": "^16.0.1",
-    "ethers": "^5.7.0"
+    "ethers": "^5.7.0",
+    "blockintel-gate-sdk": "^0.3.6"
   }
 }
