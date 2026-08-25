@@ -70,6 +70,7 @@ bob="${RPC_BOB}"
 xlayer="${RPC_XLAYER}"
 megaEth="${RPC_MEGAETH}"
 monad="${RPC_MONAD}"
+arc="${RPC_ARC}"
 
 [etherscan]
 metis={ key="any", chain=1088, url='https://andromeda-explorer.metis.io/' }
