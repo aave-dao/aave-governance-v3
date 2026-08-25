@@ -74,6 +74,14 @@ deploy-executor-lvl1:
 deploy-executor-lvl2:
 	$(call deploy_fn,Payloads/Deploy_ExecutorLvl2,ethereum)
 
+## Deploy the V4 Security Council Executor, owned by the Council Safe. Standalone: not part of the
+## governance deployment registry, so it does not go through deploy_fn. Verification is done separately,
+## the Arc explorer is behind Cloudflare Access.
+deploy-security-council-executor:
+	forge script scripts/Payloads/Deploy_SecurityCouncilExecutor.s.sol:Arc \
+	 --rpc-url arc --skip InitialDeployments.s.sol --broadcast -vvvv \
+	 $(if $(LEDGER),$(BASE_LEDGER),$(BASE_KEY))
+
 ## Deploy execution chain contracts
 deploy-payloads-controller-chain:
 	$(call deploy_fn,Payloads/Deploy_PayloadsController,monad)
