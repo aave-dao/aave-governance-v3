@@ -74,6 +74,9 @@ deploy-executor-lvl1:
 deploy-executor-lvl2:
 	$(call deploy_fn,Payloads/Deploy_ExecutorLvl2,ethereum)
 
+deploy-sentora-ppc:
+	$(call deploy_fn,Payloads/Deploy_SentoraPermissionedPayloadsController,ethereum)
+
 ## Deploy execution chain contracts
 deploy-payloads-controller-chain:
 	$(call deploy_fn,Payloads/Deploy_PayloadsController,monad)
