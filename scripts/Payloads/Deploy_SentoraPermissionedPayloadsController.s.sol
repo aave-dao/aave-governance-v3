@@ -13,13 +13,16 @@ import 'forge-std/Script.sol';
  * @notice deploys a PermissionedPayloadsController and its Executor for Sentora on Ethereum.
  * @dev the addresses are not persisted in deployments/, as ethereum.json already tracks the existing permissioned
  *      payloads controller. They are read from the broadcast logs.
- * @dev the controller owner and its proxy admin owner are the governance Executor Lvl1, so only governance can
- *      change the execution delay or upgrade the controller.
+ * @dev the Aave v4 Security Council is the controller owner and guardian, so it can change the execution delay and
+ *      cancel payloads. The proxy admin owner is the governance Executor Lvl1, so only governance can upgrade.
  */
 contract Ethereum is Script {
   // Sentora Operator Safe
   address internal constant PAYLOADS_MANAGER =
     0x6748f83C1d1F49Dffb715078B68180536aE7F40F;
+  // MiscEthereum.V4_SECURITY_COUNCIL, not yet in the pinned aave-address-book
+  address internal constant V4_SECURITY_COUNCIL =
+    0x187AAE17d4931310B3fc75743e7F16Bdc9eD77e9;
 
   uint40 internal constant EXECUTION_DELAY = 2 days;
 
@@ -47,8 +50,8 @@ contract Ethereum is Script {
         abi.encodeCall(
           PermissionedPayloadsController.initialize,
           (
-            GovernanceV3Ethereum.EXECUTOR_LVL_1,
-            MiscEthereum.PROTOCOL_GUARDIAN,
+            V4_SECURITY_COUNCIL,
+            V4_SECURITY_COUNCIL,
             PAYLOADS_MANAGER,
             executors
           )
