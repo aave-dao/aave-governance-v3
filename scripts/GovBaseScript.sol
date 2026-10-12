@@ -45,6 +45,11 @@ library GovDeployerHelpers {
     address proxyAdminGovernance;
     address proxyAdminPayloadsController;
     address proxyFactory;
+    address sentoraAclManager;
+    address sentoraPermissionedExecutor;
+    address sentoraPermissionedPayloadsController;
+    address sentoraPermissionedPayloadsControllerImpl;
+    address sentoraPoolAddressesProvider;
     address votingMachine;
     address votingMachineDataHelper;
     address votingPortal_Eth_Avax;
@@ -158,6 +163,31 @@ library GovDeployerHelpers {
         persistedJson.parseRaw('.proxyFactory'),
         (address)
       ),
+      sentoraAclManager: _decodeOptionalAddress(
+        persistedJson,
+        '.sentoraAclManager',
+        vm
+      ),
+      sentoraPermissionedExecutor: _decodeOptionalAddress(
+        persistedJson,
+        '.sentoraPermissionedExecutor',
+        vm
+      ),
+      sentoraPermissionedPayloadsController: _decodeOptionalAddress(
+        persistedJson,
+        '.sentoraPermissionedPayloadsController',
+        vm
+      ),
+      sentoraPermissionedPayloadsControllerImpl: _decodeOptionalAddress(
+        persistedJson,
+        '.sentoraPermissionedPayloadsControllerImpl',
+        vm
+      ),
+      sentoraPoolAddressesProvider: _decodeOptionalAddress(
+        persistedJson,
+        '.sentoraPoolAddressesProvider',
+        vm
+      ),
       votingMachine: abi.decode(
         persistedJson.parseRaw('.votingMachine'),
         (address)
@@ -189,6 +219,20 @@ library GovDeployerHelpers {
     });
 
     return addresses;
+  }
+
+  /**
+   * @notice decodes an address that is only tracked on some networks, defaulting to zero when the key is absent.
+   */
+  function _decodeOptionalAddress(
+    string memory persistedJson,
+    string memory key,
+    Vm vm
+  ) private view returns (address) {
+    if (!vm.keyExistsJson(persistedJson, key)) {
+      return address(0);
+    }
+    return abi.decode(persistedJson.parseRaw(key), (address));
   }
 
   /**
@@ -241,6 +285,33 @@ library GovDeployerHelpers {
       addresses.proxyAdminPayloadsController
     );
     json.serialize('proxyFactory', addresses.proxyFactory);
+    if (addresses.sentoraAclManager != address(0)) {
+      json.serialize('sentoraAclManager', addresses.sentoraAclManager);
+    }
+    if (addresses.sentoraPermissionedExecutor != address(0)) {
+      json.serialize(
+        'sentoraPermissionedExecutor',
+        addresses.sentoraPermissionedExecutor
+      );
+    }
+    if (addresses.sentoraPermissionedPayloadsController != address(0)) {
+      json.serialize(
+        'sentoraPermissionedPayloadsController',
+        addresses.sentoraPermissionedPayloadsController
+      );
+    }
+    if (addresses.sentoraPermissionedPayloadsControllerImpl != address(0)) {
+      json.serialize(
+        'sentoraPermissionedPayloadsControllerImpl',
+        addresses.sentoraPermissionedPayloadsControllerImpl
+      );
+    }
+    if (addresses.sentoraPoolAddressesProvider != address(0)) {
+      json.serialize(
+        'sentoraPoolAddressesProvider',
+        addresses.sentoraPoolAddressesProvider
+      );
+    }
     json.serialize('votingMachine', addresses.votingMachine);
     json.serialize(
       'votingMachineDataHelper',
