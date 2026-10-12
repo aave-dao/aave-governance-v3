@@ -45,9 +45,11 @@ library GovDeployerHelpers {
     address proxyAdminGovernance;
     address proxyAdminPayloadsController;
     address proxyFactory;
+    address sentoraAclManager;
     address sentoraPermissionedExecutor;
     address sentoraPermissionedPayloadsController;
     address sentoraPermissionedPayloadsControllerImpl;
+    address sentoraPoolAddressesProvider;
     address votingMachine;
     address votingMachineDataHelper;
     address votingPortal_Eth_Avax;
@@ -161,6 +163,11 @@ library GovDeployerHelpers {
         persistedJson.parseRaw('.proxyFactory'),
         (address)
       ),
+      sentoraAclManager: _decodeOptionalAddress(
+        persistedJson,
+        '.sentoraAclManager',
+        vm
+      ),
       sentoraPermissionedExecutor: _decodeOptionalAddress(
         persistedJson,
         '.sentoraPermissionedExecutor',
@@ -174,6 +181,11 @@ library GovDeployerHelpers {
       sentoraPermissionedPayloadsControllerImpl: _decodeOptionalAddress(
         persistedJson,
         '.sentoraPermissionedPayloadsControllerImpl',
+        vm
+      ),
+      sentoraPoolAddressesProvider: _decodeOptionalAddress(
+        persistedJson,
+        '.sentoraPoolAddressesProvider',
         vm
       ),
       votingMachine: abi.decode(
@@ -273,6 +285,9 @@ library GovDeployerHelpers {
       addresses.proxyAdminPayloadsController
     );
     json.serialize('proxyFactory', addresses.proxyFactory);
+    if (addresses.sentoraAclManager != address(0)) {
+      json.serialize('sentoraAclManager', addresses.sentoraAclManager);
+    }
     if (addresses.sentoraPermissionedExecutor != address(0)) {
       json.serialize(
         'sentoraPermissionedExecutor',
@@ -289,6 +304,12 @@ library GovDeployerHelpers {
       json.serialize(
         'sentoraPermissionedPayloadsControllerImpl',
         addresses.sentoraPermissionedPayloadsControllerImpl
+      );
+    }
+    if (addresses.sentoraPoolAddressesProvider != address(0)) {
+      json.serialize(
+        'sentoraPoolAddressesProvider',
+        addresses.sentoraPoolAddressesProvider
       );
     }
     json.serialize('votingMachine', addresses.votingMachine);
