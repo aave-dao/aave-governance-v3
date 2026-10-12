@@ -73,7 +73,7 @@ contract Ethereum is GovBaseScript {
     );
 
     // the deployer is the temporary ACL admin, as ACLManager grants its admin role to the provider's ACL admin
-    address deployer = msg.sender;
+    (, address deployer, ) = vm.readCallers();
     PoolAddressesProvider provider = new PoolAddressesProvider(
       MARKET_ID,
       deployer
