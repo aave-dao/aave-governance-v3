@@ -1,0 +1,27 @@
+foundry.toml
+  s_3aa7922e3a8d0b::t_45d0b74dd45b4c 73
+Makefile
+  s_3aa7922e3a8d0b::t_45d0b74dd45b4c 72
+scripts/Payloads/Deploy_ExecutorLvl1.s.sol
+  s_3aa7922e3a8d0b::t_45d0b74dd45b4c 156-161
+foundry.lock
+  s_3aa7922e3a8d0b::t_92b33b059be984 5
+lib/aave-delivery-infrastructure
+  s_3aa7922e3a8d0b::t_f704b4a112397f 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b8edc4de3f285f74ac6bd6ec695b0609e1774ba7",
+  "prompts": {},
+  "sessions": {
+    "s_3aa7922e3a8d0b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "12f5bfa1-a918-4a3e-98cb-edbb2a8744cd",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}
