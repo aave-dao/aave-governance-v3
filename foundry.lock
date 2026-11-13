@@ -2,7 +2,7 @@
   "lib/aave-delivery-infrastructure": {
     "branch": {
       "name": "main",
-      "rev": "e4e2500c58fa1eeaa3ffd8f352bdc55c576c1148"
+      "rev": "6ead2dba5030cc8f89ee6c5ccf6cc9b8d0cd03e8"
     }
   },
   "lib/aave-helpers": {
